@@ -82,6 +82,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Sign In"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#1582B8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

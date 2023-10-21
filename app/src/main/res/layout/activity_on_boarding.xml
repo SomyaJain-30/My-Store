@@ -55,8 +55,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@drawable/button_background"
-            android:textSize="20sp"
+            android:backgroundTint="#1582B8"
+            android:textSize="17sp"
             android:padding="7dp"
+            android:textColor="@color/white"
             android:text="Let's get started"
             android:visibility="invisible" />
 

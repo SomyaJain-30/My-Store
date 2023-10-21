@@ -44,7 +44,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(OnBoardingActivity.this, RegisterActivity.class);
                 startActivity(i);
-                finish();
+//                finish();
             }
         });
 

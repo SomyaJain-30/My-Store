@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    android:layout_marginHorizontal="5dp"
+    android:padding="5dp"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EDEDED">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/popular_img"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.134" />
+
+        <TextView
+            android:id="@+id/popular_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="product name"
+            android:layout_marginTop="5dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popular_img"
+            app:layout_constraintVertical_bias="0.04" />
+
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popular_name">
+
+            <TextView
+                android:id="@+id/price_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price: ₹"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_alignParentLeft="true"/>
+            <TextView
+                android:id="@+id/popular_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="90"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/price_text1"
+                />
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

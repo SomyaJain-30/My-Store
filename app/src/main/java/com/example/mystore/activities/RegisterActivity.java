@@ -38,11 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
         signin = findViewById(R.id.signin_text_register);
 
 
-        if(firebaseAuth.getCurrentUser() != null){
-            Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }
         sharedPreferences = getSharedPreferences("onBoardingScreen", MODE_PRIVATE);
         boolean isFirstTime = sharedPreferences.getBoolean("firstTime", true);
 
