@@ -1,6 +1,8 @@
 package com.example.mystore.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mystore.R;
+import com.example.mystore.activities.DetailedActivity;
 import com.example.mystore.models.NewProductsModel;
 
 import java.util.List;
@@ -34,10 +37,19 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewProductsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NewProductsAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context).load(productList.get(position).getImg_url()).into(holder.product_img);
         holder.product_name.setText(productList.get(position).getName());
         holder.product_price.setText(String.valueOf(productList.get(position).getPrice()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, DetailedActivity.class);
+                i.putExtra("detailed", productList.get(position));
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override

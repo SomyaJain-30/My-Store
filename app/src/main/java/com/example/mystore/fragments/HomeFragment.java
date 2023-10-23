@@ -1,6 +1,7 @@
 package com.example.mystore.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,12 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.mystore.R;
+import com.example.mystore.activities.ShowAllActivity;
 import com.example.mystore.adapters.CategoryAdapter;
 import com.example.mystore.adapters.NewProductsAdapter;
 import com.example.mystore.adapters.PopularAdapter;
@@ -38,6 +41,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    TextView catSeeAll, newProductSeeAll, popularSeeAll;
     RecyclerView catRecycleView, newProductRecycleView,popularRecycleView;
 
     //category
@@ -68,6 +72,33 @@ public class HomeFragment extends Fragment {
         catRecycleView = root.findViewById(R.id.rec_category);
         newProductRecycleView = root.findViewById(R.id.new_product_rec);
         popularRecycleView = root.findViewById(R.id.popular_rec);
+        catSeeAll = root.findViewById(R.id.category_see_all);
+        newProductSeeAll = root.findViewById(R.id.newProducts_see_all);
+        popularSeeAll = root.findViewById(R.id.popular_see_all);
+
+        catSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ShowAllActivity.class);
+                startActivity(i);
+            }
+        });
+
+        newProductSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ShowAllActivity.class);
+                startActivity(i);
+            }
+        });
+
+        popularSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ShowAllActivity.class);
+                startActivity(i);
+            }
+        });
         List<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.banner1, "Discount on shoes items", ScaleTypes.CENTER_CROP));
         slideModels.add(new SlideModel(R.drawable.banner2, "Discount on perfumes", ScaleTypes.CENTER_CROP));

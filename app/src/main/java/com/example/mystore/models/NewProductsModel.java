@@ -1,6 +1,8 @@
 package com.example.mystore.models;
 
-public class NewProductsModel {
+import java.io.Serializable;
+
+public class NewProductsModel implements Serializable {
     private String img_url;
     private String description;
     private String name;

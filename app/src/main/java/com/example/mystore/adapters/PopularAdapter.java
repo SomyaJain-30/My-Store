@@ -1,6 +1,8 @@
 package com.example.mystore.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mystore.R;
+import com.example.mystore.activities.DetailedActivity;
 import com.example.mystore.models.PopularModel;
 
 import org.w3c.dom.Text;
@@ -34,10 +37,20 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         }
 
         @Override
-        public void onBindViewHolder(@NonNull PopularAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull PopularAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
                 Glide.with(context).load(popularList.get(position).getImg_url()).into(holder.popular_img);
                 holder.popular_name.setText(popularList.get(position).getName());
                 holder.popular_price.setText(String.valueOf(popularList.get(position).getPrice()));
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                Intent i = new Intent(context, DetailedActivity.class);
+                                i.putExtra("detailed", popularList.get(position));
+                                context.startActivity(i);
+                        }
+                });
+
         }
 
         @Override
