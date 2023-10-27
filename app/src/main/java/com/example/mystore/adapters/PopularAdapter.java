@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mystore.R;
 import com.example.mystore.activities.DetailedActivity;
+import com.example.mystore.models.AllProductModel;
 import com.example.mystore.models.PopularModel;
 
 import org.w3c.dom.Text;
@@ -24,9 +25,9 @@ import java.util.List;
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHolder>{
 
         Context context;
-        List<PopularModel> popularList;
+        List<AllProductModel> popularList;
 
-        public PopularAdapter(Context context, List<PopularModel> popularList){
+        public PopularAdapter(Context context, List<AllProductModel> popularList){
                 this.context = context;
                 this.popularList = popularList;
         }
@@ -55,7 +56,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
         @Override
         public int getItemCount() {
-                return popularList.size();
+                return Math.min(popularList.size(),4);
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {

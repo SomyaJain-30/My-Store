@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         firebaseAuth = FirebaseAuth.getInstance();
         new Handler().postDelayed(new Runnable() {
             @Override

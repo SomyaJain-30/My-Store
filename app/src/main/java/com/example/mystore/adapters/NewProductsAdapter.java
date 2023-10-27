@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mystore.R;
 import com.example.mystore.activities.DetailedActivity;
+import com.example.mystore.models.AllProductModel;
 import com.example.mystore.models.NewProductsModel;
 
 import java.util.List;
@@ -23,9 +24,9 @@ import java.util.List;
 public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.ViewHolder> {
 
     private Context context;
-    List<NewProductsModel> productList;
+    List<AllProductModel> productList;
 
-    public NewProductsAdapter(Context context, List<NewProductsModel> productList){
+    public NewProductsAdapter(Context context, List<AllProductModel> productList){
         this.context = context;
         this.productList = productList;
     }
@@ -54,7 +55,7 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return Math.min(4, productList.size());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

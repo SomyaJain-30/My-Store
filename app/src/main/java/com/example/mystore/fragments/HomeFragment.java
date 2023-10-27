@@ -26,6 +26,7 @@ import com.example.mystore.activities.ShowAllActivity;
 import com.example.mystore.adapters.CategoryAdapter;
 import com.example.mystore.adapters.NewProductsAdapter;
 import com.example.mystore.adapters.PopularAdapter;
+import com.example.mystore.models.AllProductModel;
 import com.example.mystore.models.CategoryModel;
 import com.example.mystore.models.NewProductsModel;
 import com.example.mystore.models.PopularModel;
@@ -41,19 +42,19 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    TextView catSeeAll, newProductSeeAll, popularSeeAll;
+    TextView newProductSeeAll, popularSeeAll;
     RecyclerView catRecycleView, newProductRecycleView,popularRecycleView;
 
     //category
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
 
-    //new products
     NewProductsAdapter newProductsAdapter;
-    List<NewProductsModel> newProductsModelList;
-     //popular products
     PopularAdapter popularAdapter;
-    List<PopularModel> popularModelList;
+    List<AllProductModel> allProductModelList;
+    List<AllProductModel> newProductsList;
+    List<AllProductModel> popularList;
+
     FirebaseFirestore firestore;
     ProgressDialog progressBar;
     LinearLayout linearLayout;
@@ -72,22 +73,15 @@ public class HomeFragment extends Fragment {
         catRecycleView = root.findViewById(R.id.rec_category);
         newProductRecycleView = root.findViewById(R.id.new_product_rec);
         popularRecycleView = root.findViewById(R.id.popular_rec);
-        catSeeAll = root.findViewById(R.id.category_see_all);
         newProductSeeAll = root.findViewById(R.id.newProducts_see_all);
         popularSeeAll = root.findViewById(R.id.popular_see_all);
 
-        catSeeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ShowAllActivity.class);
-                startActivity(i);
-            }
-        });
 
         newProductSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), ShowAllActivity.class);
+                i.putExtra("division", "new");
                 startActivity(i);
             }
         });
@@ -96,6 +90,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), ShowAllActivity.class);
+                i.putExtra("division", "popular");
                 startActivity(i);
             }
         });
@@ -106,9 +101,11 @@ public class HomeFragment extends Fragment {
         imageSlider.setImageList(slideModels);
 
         linearLayout.setVisibility(View.GONE);
+        linearLayout.setBackgroundColor(getResources().getColor(R.color.white));
         progressBar.setCanceledOnTouchOutside(false);
         progressBar.setMessage("Please wait ...");
         progressBar.show();
+
 
 
         firestore = FirebaseFirestore.getInstance();
@@ -130,47 +127,41 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
+        allProductModelList = new ArrayList<>();
         //for new product recycleview
 
         newProductRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
-        newProductsModelList = new ArrayList<>();
-        newProductsAdapter = new NewProductsAdapter(getContext(), newProductsModelList);
+        newProductsList = new ArrayList<>();
+        newProductsAdapter = new NewProductsAdapter(getContext(), newProductsList);
         newProductRecycleView.setAdapter(newProductsAdapter);
-
-        firestore.collection("New Products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot ds: task.getResult()){
-                        NewProductsModel newProductsModel = ds.toObject(NewProductsModel.class);
-                        newProductsModelList.add(newProductsModel);
-                        newProductsAdapter.notifyDataSetChanged();
-                    }
-                }else{
-                    Toast.makeText(getActivity(), ""+ task.getException(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         //for popular products
         popularRecycleView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        popularModelList = new ArrayList<>();
-        popularAdapter = new PopularAdapter(getContext(),popularModelList);
+        popularList = new ArrayList<>();
+        popularAdapter = new PopularAdapter(getContext(),popularList);
         popularRecycleView.setAdapter(popularAdapter);
 
-        firestore.collection("AllProducts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+
+        firestore.collection("All Products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot ds: task.getResult()){
-                        PopularModel popularModel = ds.toObject(PopularModel.class);
-                        popularModelList.add(popularModel);
-                        popularAdapter.notifyDataSetChanged();
-                        progressBar.dismiss();
+                        AllProductModel allProductModel = ds.toObject(AllProductModel.class);
+                        allProductModel.setProductId(ds.getId());
+                        System.out.println("productId" + allProductModel.getProductId());
+                        if(allProductModel.getDivision().equals("new")){
+                            newProductsList.add(allProductModel);
+                        }else if(allProductModel.getDivision().equals("popular")) {
+                            popularList.add(allProductModel);
+                        }
                     }
+                    popularAdapter.notifyDataSetChanged();
+                    newProductsAdapter.notifyDataSetChanged();
+                    progressBar.dismiss();
                 }else{
-                    Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), ""+ task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mystore.R;
 import com.example.mystore.activities.DetailedActivity;
+import com.example.mystore.models.AllProductModel;
 import com.example.mystore.models.ShowAllModel;
 
 import java.util.List;
@@ -22,9 +23,9 @@ import java.util.List;
 public class ShowAllAdapter extends RecyclerView.Adapter<ShowAllAdapter.ViewHolder> {
 
     private Context context;
-    private List<ShowAllModel> showAllList;
+    private List<AllProductModel> showAllList;
 
-    public ShowAllAdapter(Context context, List<ShowAllModel> showAllList){
+    public ShowAllAdapter(Context context, List<AllProductModel> showAllList){
         this.context = context;
         this.showAllList = showAllList;
     }

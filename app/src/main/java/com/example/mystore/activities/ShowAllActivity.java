@@ -2,6 +2,7 @@ package com.example.mystore.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +10,7 @@ import android.os.Bundle;
 
 import com.example.mystore.R;
 import com.example.mystore.adapters.ShowAllAdapter;
+import com.example.mystore.models.AllProductModel;
 import com.example.mystore.models.ShowAllModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,13 +25,21 @@ import java.util.List;
 public class ShowAllActivity extends AppCompatActivity {
     RecyclerView showAllRecyclerView;
     ShowAllAdapter showAllAdapter;
-    List<ShowAllModel> showAllModelList;
+    List<AllProductModel> showAllModelList;
     FirebaseFirestore firestore;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all);
+
+        toolbar = findViewById(R.id.show_all_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         firestore = FirebaseFirestore.getInstance();
+
+        String division = getIntent().getStringExtra("division");
         String type = getIntent().getStringExtra("type");
         showAllRecyclerView = findViewById(R.id.show_all_rec);
         showAllRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
@@ -37,29 +47,27 @@ public class ShowAllActivity extends AppCompatActivity {
         showAllAdapter = new ShowAllAdapter(this,showAllModelList);
         showAllRecyclerView.setAdapter(showAllAdapter);
 
-
-
-        if(type == null || type.isEmpty()){
-            firestore.collection("ShowAll").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        if(division == null || division.isEmpty()){
+            firestore.collection("All Products").whereEqualTo("type", type).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if(task.isSuccessful()){
                         for(DocumentSnapshot doc: task.getResult().getDocuments()){
-                            ShowAllModel showAllModel = doc.toObject(ShowAllModel.class);
-                            showAllModelList.add(showAllModel);
+                            AllProductModel allProductModel = doc.toObject(AllProductModel.class);
+                            showAllModelList.add(allProductModel);
                             showAllAdapter.notifyDataSetChanged();
                         }
                     }
                 }
             });
         }else {
-            firestore.collection("ShowAll").whereEqualTo("type", type).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            firestore.collection("All Products").whereEqualTo("division", division).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if(task.isSuccessful()){
                         for(DocumentSnapshot doc: task.getResult().getDocuments()){
-                            ShowAllModel showAllModel = doc.toObject(ShowAllModel.class);
-                            showAllModelList.add(showAllModel);
+                            AllProductModel allProductModel = doc.toObject(AllProductModel.class);
+                            showAllModelList.add(allProductModel);
                             showAllAdapter.notifyDataSetChanged();
                         }
                     }

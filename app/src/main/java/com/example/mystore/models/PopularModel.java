@@ -4,21 +4,21 @@ import java.io.Serializable;
 
 public class PopularModel implements Serializable {
 
-    private String img_url;
-    private String description;
-    private String name;
-    private String rating;
+    private String img_url, description, name, rating, type,  division;
     private int price;
 
     public PopularModel(){
 
     }
-    public PopularModel(String img_url, String description, String name, String rating, int price){
+    public PopularModel(String img_url, String description, String name, String rating, String type, String division, int price){
         this.description = description;
         this.img_url = img_url;
         this.name = name;
         this.rating = rating;
         this.price = price;
+        this.type = type;
+        this.division = division;
+
     }
 
     public String getImg_url() {
@@ -59,5 +59,21 @@ public class PopularModel implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
     }
 }

@@ -3,20 +3,21 @@ package com.example.mystore.models;
 import java.io.Serializable;
 
 public class ShowAllModel implements Serializable {
-    private String img_url, name,rating,type,description;
+    private String img_url, description, name, rating, type,  division;
     private int price;
 
     public ShowAllModel(){
 
     }
-
-    public ShowAllModel(String img_url, String name, String rating, String type, String description, int price){
+    public ShowAllModel(String img_url, String description, String name, String rating, String type, String division, int price){
+        this.description = description;
         this.img_url = img_url;
         this.name = name;
         this.rating = rating;
-        this.type = type;
-        this.description = description;
         this.price = price;
+        this.type = type;
+        this.division = division;
+
     }
 
     public String getImg_url() {
@@ -25,6 +26,14 @@ public class ShowAllModel implements Serializable {
 
     public void setImg_url(String img_url) {
         this.img_url = img_url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {
@@ -43,6 +52,14 @@ public class ShowAllModel implements Serializable {
         this.rating = rating;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public String getType() {
         return type;
     }
@@ -51,19 +68,11 @@ public class ShowAllModel implements Serializable {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDivision() {
+        return division;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    public void setDivision(String division) {
+        this.division = division;
     }
 }

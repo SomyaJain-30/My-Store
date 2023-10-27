@@ -57,6 +57,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
+            dots[i].setTextColor(getResources().getColor(com.denzcoskun.imageslider.R.color.grey_font));
             dotslayout.addView(dots[i]);
         }
         if(dots.length>0){
